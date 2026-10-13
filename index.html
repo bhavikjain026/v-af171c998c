@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Probability Questions Visit</title>
+<style>
+/* Layout: one calm reading column, like a question booklet; the question is the only thing on screen. */
+:root {
+  --bg: #f5f7f9;
+  --surface: #ffffff;
+  --ink: #1b2430;
+  --muted: #5b6675;
+  --line: #d6dce4;
+  --accent: #2c5a88;
+  --accent-ink: #ffffff;
+  --warn: #9c3f27;
+  --warn-bg: #fbeee9;
+  --focus: #6d9bd0;
+  --serif: Charter, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151b; --surface: #1a2029; --ink: #e5e9ef; --muted: #9aa5b4; --line: #2d3644;
+    --accent: #86b0dc; --accent-ink: #0f1620; --warn: #e7987f; --warn-bg: #2c1d18; --focus: #86b0dc;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151b; --surface: #1a2029; --ink: #e5e9ef; --muted: #9aa5b4; --line: #2d3644;
+  --accent: #86b0dc; --accent-ink: #0f1620; --warn: #e7987f; --warn-bg: #2c1d18; --focus: #86b0dc;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--sans); }
+.wrap { max-width: 680px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 20px; }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px;
+  border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+header .name { font-weight: 600; letter-spacing: 0.01em; }
+header .meta { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+h1 { font: 600 26px/1.25 var(--serif); margin: 0; text-wrap: balance; }
+h2 { font: 600 20px/1.3 var(--serif); margin: 0; text-wrap: balance; }
+p { margin: 0; max-width: 65ch; }
+.stack { display: grid; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 16px; }
+ul.plain { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.progress { display: grid; gap: 6px; }
+.bar { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--accent); width: 0; transition: width .2s ease; }
+.problem { font: 18px/1.65 var(--serif); }
+.ask { font: 600 18px/1.5 var(--serif); }
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 600; }
+.hint { color: var(--muted); font-size: 14px; }
+.answer-row { display: flex; align-items: center; gap: 8px; }
+input[type="text"], textarea {
+  font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+  padding: 10px 12px; width: 100%;
+}
+input#answer { max-width: 9rem; font-variant-numeric: tabular-nums; font-size: 18px; }
+textarea { min-height: 9rem; resize: vertical; font: 15px/1.5 var(--mono); }
+input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
+  outline: 3px solid var(--focus); outline-offset: 2px;
+}
+.check { display: flex; gap: 10px; align-items: flex-start; }
+.check input { margin-top: 5px; width: 18px; height: 18px; flex: none; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+button {
+  font: 600 16px/1 var(--sans); border-radius: 8px; padding: 12px 18px; cursor: pointer;
+  border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+}
+button.quiet { background: transparent; color: var(--accent); }
+button.link { background: none; border: none; color: var(--muted); padding: 4px 0; text-decoration: underline;
+  font-weight: 400; font-size: 14px; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.error { color: var(--warn); background: var(--warn-bg); border-radius: 6px; padding: 8px 12px; font-size: 15px; }
+.note { border-left: 3px solid var(--line); padding-left: 12px; color: var(--muted); font-size: 15px; }
+.radio-row { display: flex; flex-wrap: wrap; gap: 18px; }
+.radio-row label { display: flex; gap: 8px; align-items: center; font-weight: 400; }
+pre.out { margin: 0; max-height: 12rem; overflow: auto; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px; font: 12px/1.45 var(--mono); white-space: pre-wrap; word-break: break-all; }
+.code { font-family: var(--mono); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .bar > span { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="name">Probability questions</span>
+    <span class="meta" id="meta"></span>
+  </header>
+  <main id="screen" class="stack" aria-live="polite"></main>
+</div>
+
+<script id="visit-data" type="application/json">{"format": 1, "code": "P06", "visit": 1, "n_items": 8, "soft_limit_s": 120, "tol": 0.01, "eps": 1e-09, "items": [{"role": "opening_base", "story": "train", "title": "Train cancellation", "text": "The probability that your morning train is cancelled on a given day is 10%. If it is going to be cancelled, the probability that the rail app already shows a \"disruption\" warning on your line early in the morning is 60% (many cancellations are announced late). If your train is going to run, the probability that the app shows a \"disruption\" warning anyway is 30% (because of delays elsewhere on the line). Early in the morning the app shows a \"disruption\" warning.", "question": "What is the probability that your train is cancelled?", "base": 0.1, "hit": 0.6, "false_alarm": 0.3}, {"role": "opening_base", "story": "parcel", "title": "Parcel tracking", "text": "The probability that a parcel from your usual online shop arrives on the promised day is 95%. If it is going to arrive that day, the probability that the tracking page already says \"out for delivery\" in the morning is 60% (some vans are loaded later in the day). If it will be late, the probability that the page says \"out for delivery\" in the morning anyway is 30% (for example, the van breaks down). Today is the promised day. This morning the tracking page says \"out for delivery\".", "question": "What is the probability that your parcel arrives today, as promised?", "base": 0.95, "hit": 0.6, "false_alarm": 0.3}, {"role": "opening_fa", "story": "train", "title": "Train cancellation", "text": "The probability that your morning train is cancelled on a given day is 15%. If it is going to be cancelled, the probability that the rail app already shows a \"disruption\" warning on your line early in the morning is 60% (many cancellations are announced late). If your train is going to run, the probability that the app shows a \"disruption\" warning anyway is 5% (because of delays elsewhere on the line). Early in the morning the app shows a \"disruption\" warning.", "question": "What is the probability that your train is cancelled?", "base": 0.15, "hit": 0.6, "false_alarm": 0.05}, {"role": "opening_fa", "story": "rain", "title": "Weather app rain alert", "text": "In your town, the probability that it rains on a given day is 15%. If it is going to rain, the probability that your weather app sends a \"rain likely\" alert the evening before is 60%. If it is going to stay dry, the probability that the app sends the alert anyway is 30%. Tonight the app sends a \"rain likely\" alert for tomorrow.", "question": "What is the probability that it will rain tomorrow?", "base": 0.15, "hit": 0.6, "false_alarm": 0.3}, {"role": "opening_hit", "story": "rain", "title": "Weather app rain alert", "text": "In your town, the probability that it rains on a given day is 25%. If it is going to rain, the probability that your weather app sends a \"rain likely\" alert the evening before is 40%. If it is going to stay dry, the probability that the app sends the alert anyway is 25%. Tonight the app sends a \"rain likely\" alert for tomorrow.", "question": "What is the probability that it will rain tomorrow?", "base": 0.25, "hit": 0.4, "false_alarm": 0.25}, {"role": "opening_hit", "story": "scamcall", "title": "Phone scam warning", "text": "The probability that a call from a number not in your contacts is a scam is 25%. Your phone's caller check labels a scam call as \"suspected scam\" with probability 90%. It also labels genuine calls from unknown numbers, such as delivery drivers or a clinic, as \"suspected scam\" with probability 25%. An unknown number calls and the screen says \"suspected scam\".", "question": "What is the probability that the call really is a scam?", "base": 0.25, "hit": 0.9, "false_alarm": 0.25}, {"role": "first", "story": "scamcall", "title": "Phone scam warning", "text": "The probability that a call from a number not in your contacts is a scam is 20%. Your phone's caller check labels a scam call as \"suspected scam\" with probability 85%. It also labels genuine calls from unknown numbers, such as delivery drivers or a clinic, as \"suspected scam\" with probability 30%. An unknown number calls and the screen says \"suspected scam\".", "question": "What is the probability that the call really is a scam?", "base": 0.2, "hit": 0.85, "false_alarm": 0.3}], "item7_preds": {"k0": 0.4146341463414634, "k1": 0.85, "k2": 0.2, "k3": 0.17, "k4": 0.55, "k5": 0.7, "k6": 0.7391304347826088}, "key_order": ["k0", "k1", "k2", "k3", "k4", "k5", "k6"], "item8": {"k3": {"role": "follow_up", "story": "rain", "title": "Weather app rain alert", "text": "In your town, the probability that it rains on a given day is 45%. If it is going to rain, the probability that your weather app sends a \"rain likely\" alert the evening before is 85%. If it is going to stay dry, the probability that the app sends the alert anyway is 30%. Tonight the app sends a \"rain likely\" alert for tomorrow.", "question": "What is the probability that it will rain tomorrow?", "base": 0.45, "hit": 0.85, "false_alarm": 0.3}, "k2": {"role": "follow_up", "story": "rain", "title": "Weather app rain alert", "text": "In your town, the probability that it rains on a given day is 35%. If it is going to rain, the probability that your weather app sends a \"rain likely\" alert the evening before is 85%. If it is going to stay dry, the probability that the app sends the alert anyway is 30%. Tonight the app sends a \"rain likely\" alert for tomorrow.", "question": "What is the probability that it will rain tomorrow?", "base": 0.35, "hit": 0.85, "false_alarm": 0.3}, "k4": {"role": "follow_up", "story": "rain", "title": "Weather app rain alert", "text": "In your town, the probability that it rains on a given day is 20%. If it is going to rain, the probability that your weather app sends a \"rain likely\" alert the evening before is 95%. If it is going to stay dry, the probability that the app sends the alert anyway is 30%. Tonight the app sends a \"rain likely\" alert for tomorrow.", "question": "What is the probability that it will rain tomorrow?", "base": 0.2, "hit": 0.95, "false_alarm": 0.3}, "k5": {"role": "follow_up", "story": "rain", "title": "Weather app rain alert", "text": "In your town, the probability that it rains on a given day is 20%. If it is going to rain, the probability that your weather app sends a \"rain likely\" alert the evening before is 85%. If it is going to stay dry, the probability that the app sends the alert anyway is 20%. Tonight the app sends a \"rain likely\" alert for tomorrow.", "question": "What is the probability that it will rain tomorrow?", "base": 0.2, "hit": 0.85, "false_alarm": 0.2}, "k6": {"role": "follow_up", "story": "rain", "title": "Weather app rain alert", "text": "In your town, the probability that it rains on a given day is 20%. If it is going to rain, the probability that your weather app sends a \"rain likely\" alert the evening before is 85%. If it is going to stay dry, the probability that the app sends the alert anyway is 10%. Tonight the app sends a \"rain likely\" alert for tomorrow.", "question": "What is the probability that it will rain tomorrow?", "base": 0.2, "hit": 0.85, "false_alarm": 0.1}, "k1": {"role": "follow_up", "story": "rain", "title": "Weather app rain alert", "text": "In your town, the probability that it rains on a given day is 20%. If it is going to rain, the probability that your weather app sends a \"rain likely\" alert the evening before is 95%. If it is going to stay dry, the probability that the app sends the alert anyway is 30%. Tonight the app sends a \"rain likely\" alert for tomorrow.", "question": "What is the probability that it will rain tomorrow?", "base": 0.2, "hit": 0.95, "false_alarm": 0.3}}, "fallback": {"role": "fallback", "story": "parcel", "title": "Parcel tracking", "text": "The probability that a parcel from your usual online shop arrives on the promised day is 85%. If it is going to arrive that day, the probability that the tracking page already says \"out for delivery\" in the morning is 65% (some vans are loaded later in the day). If it will be late, the probability that the page says \"out for delivery\" in the morning anyway is 20% (for example, the van breaks down). Today is the promised day. This morning the tracking page says \"out for delivery\".", "question": "What is the probability that your parcel arrives today, as promised?", "base": 0.85, "hit": 0.65, "false_alarm": 0.2}, "block": [], "contact": "Bhavik Jain", "consent_note": ""}</script>
+<script>
+(function () {
+  "use strict";
+  const PAGE_VERSION = "selfserve-1";
+  const D = JSON.parse(document.getElementById("visit-data").textContent);
+  const N_MAIN = D.n_items;                       // 8
+  const N_BLOCK = (D.block || []).length;         // 0 or 4
+  const TOTAL = N_MAIN + N_BLOCK;
+  const STORE_KEY = "contrast-visit:" + D.code + ":" + D.visit;
+  const screen = document.getElementById("screen");
+  document.getElementById("meta").textContent = "Visit " + D.visit + " · Code " + D.code;
+
+  // ---------- state ----------
+  let S = load() || {
+    format: 1, kind: "selfserve_answers", page_version: PAGE_VERSION, code: D.code, visit: D.visit,
+    opened_at: now(), consent_at: null, started_at: null, finished_at: null,
+    completed: false, stopped_early: false, resumed: 0, item8_key: null, items: [],
+    help_used: null, help_detail: "", comment: "", user_agent: navigator.userAgent
+  };
+  let shownAt = null, rejected = [];
+
+  function now() { return new Date().toISOString(); }
+  function load() {
+    try { const t = localStorage.getItem(STORE_KEY); return t ? JSON.parse(t) : null; } catch (e) { return null; }
+  }
+  function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) { /* not essential */ } }
+
+  // ---------- answer parsing: mirrors the tutor's own rules ----------
+  const NUM = /^[+-]?(\d+(\.\d*)?|\.\d+)$/;
+  function parseMain(raw) {            // score_quiz.parse_answer → probability in [0, 1]
+    const s = String(raw == null ? "" : raw).trim().replace(/,/g, ".");
+    if (!s) return null;
+    const pct = s.endsWith("%");
+    const body = s.replace(/%+$/, "").trim();
+    if (!NUM.test(body)) return null;
+    let v = Number(body);
+    if (pct || v > 1) v /= 100;
+    if (!(v >= 0 && v <= 1)) return null;
+    return v;
+  }
+  function parseBlock(raw) {           // condprob_block.parse_percent → points (above 100 allowed)
+    const s = String(raw == null ? "" : raw).trim().replace(/,/g, ".");
+    const pct = s.endsWith("%");
+    const body = s.replace(/%+$/, "").trim();
+    if (!NUM.test(body)) return null;
+    let v = Number(body);
+    if (v < 0) return null;
+    if (!pct && v > 0 && v < 1 && s.includes(".")) v *= 100;
+    return v;
+  }
+
+  // ---------- which question is n (0-based) ----------
+  function itemAt(n) {
+    if (n < 7) return Object.assign({ source: "main" }, D.items[n]);
+    if (n === 7) {
+      const it = S.item8_key === "fallback" ? D.fallback : D.item8[S.item8_key];
+      return Object.assign({ source: "main" }, it);
+    }
+    return Object.assign({ source: "block" }, D.block[n - N_MAIN]);
+  }
+  function chooseItem8(raw7) {         // diagnostic_mode: follow-up if item 7 fits a wrong strategy, else fallback
+    const v = parseMain(raw7);
+    const cands = D.key_order.filter(function (k) { return Math.abs(D.item7_preds[k] - v) <= D.tol + D.eps; });
+    const key = cands.join("|");
+    S.item8_key = Object.prototype.hasOwnProperty.call(D.item8, key) ? key : "fallback";
+  }
+
+  // ---------- rendering ----------
+  function el(tag, attrs, kids) {
+    const e = document.createElement(tag);
+    for (const k in (attrs || {})) {
+      if (k === "text") e.textContent = attrs[k];
+      else if (k === "class") e.className = attrs[k];
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), attrs[k]);
+      else e.setAttribute(k, attrs[k]);
+    }
+    (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return e;
+  }
+  function show(nodes) { screen.replaceChildren.apply(screen, nodes); window.scrollTo(0, 0); }
+
+  function intro() {
+    const resumeAt = S.items.length;
+    if (S.started_at && !S.finished_at) {
+      return show([
+        el("h1", { text: "Welcome back" }),
+        el("div", { class: "card" }, [
+          el("p", { text: "You have already answered " + resumeAt + " of " + TOTAL + " questions on this computer. You can carry on from question " + (resumeAt + 1) + "." }),
+          el("div", { class: "actions" }, [el("button", { id: "resume", text: "Carry on", onclick: function () { S.resumed += 1; save(); ask(); } })])
+        ])
+      ]);
+    }
+    if (S.finished_at) return finished();
+    const agree = el("input", { type: "checkbox", id: "agree" });
+    const start = el("button", { id: "start", text: "Start the questions", disabled: "" });
+    agree.addEventListener("change", function () { start.disabled = !agree.checked; });
+    start.addEventListener("click", function () {
+      S.consent_at = S.consent_at || now(); S.started_at = now(); save(); ask();
+    });
+    const extra = N_BLOCK ? " After them come " + N_BLOCK + " short extra questions of a different kind." : "";
+    show([
+      el("h1", { text: "Visit " + D.visit + ": " + N_MAIN + " probability questions" }),
+      el("div", { class: "card" }, [
+        el("p", { text: "Each question describes a short everyday situation and asks for a probability. Answer as a percent." + extra + " Most people take 20 to 30 minutes." }),
+        el("ul", { class: "plain" }, [
+          el("li", { text: "Use pen and paper and a calculator if you like. Please don't use websites, AI tools such as ChatGPT, or help from another person." }),
+          el("li", { text: "For each question, type your working step by step, the way you actually did it. If you guessed, write “guess”." }),
+          el("li", { text: "You will not see whether your answers are right. That is part of the design, not a mistake." }),
+          el("li", { text: "There is no time limit. About 2 minutes a question is typical." }),
+          el("li", { text: "You can stop at any time. Your answers stay on this computer until you send the file at the end." })
+        ]),
+        el("p", { class: "note", text: "Your answers are stored under the code " + D.code + ", not your name. " + (D.consent_note || "") }),
+        el("label", { class: "check", for: "agree" }, [agree, el("span", { text: "I have read the information sheet I was sent, and I agree to take part." })]),
+        el("div", { class: "actions" }, [start])
+      ])
+    ]);
+  }
+
+  function ask() {
+    const n = S.items.length;
+    if (n >= TOTAL) return afterQuestions();
+    const it = itemAt(n);
+    shownAt = performance.now(); rejected = [];
+    const isBlock = it.source === "block";
+    const label = isBlock ? "Extra question " + (n - N_MAIN + 1) + " of " + N_BLOCK : "Question " + (n + 1) + " of " + N_MAIN;
+    const done = isBlock ? n - N_MAIN : n, of = isBlock ? N_BLOCK : N_MAIN;
+    const ans = el("input", { type: "text", id: "answer", inputmode: "decimal", autocomplete: "off", "aria-describedby": "answer-hint" });
+    const work = el("textarea", { id: "working", "aria-describedby": "working-hint", spellcheck: "false" });
+    const err = el("div", { class: "error", id: "error", role: "alert" }); err.hidden = true;
+    const submit = el("button", { id: "submit", text: "Submit answer" });
+    function go() {
+      const raw = ans.value;
+      const ok = isBlock ? parseBlock(raw) !== null : parseMain(raw) !== null;
+      if (!ok) {
+        rejected.push(raw);
+        err.textContent = "Please give a number, e.g. 34 or 34%."; err.hidden = false; ans.focus(); return;
+      }
+      if (!work.value.trim()) {
+        err.textContent = "Please type your working, or write “guess” if you guessed."; err.hidden = false; work.focus(); return;
+      }
+      const rec = {
+        n: n + 1, source: it.source, role: it.role || null, story: it.story || it.template, title: it.title,
+        shown: isBlock ? { given: it.given } : { base: it.base, hit: it.hit, false_alarm: it.false_alarm },
+        answer_raw: raw, rejected_raw: rejected.slice(), working: work.value,
+        time_s: Math.round((performance.now() - shownAt) / 100) / 10, submitted_at: now()
+      };
+      S.items.push(rec);
+      if (n === 6) chooseItem8(raw);
+      save(); ask();
+    }
+    submit.addEventListener("click", go);
+    ans.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); work.focus(); } });
+    const stopBox = el("div", { class: "actions" });
+    const stopLink = el("button", { class: "link", text: "Stop the visit here" });
+    stopLink.addEventListener("click", function () {
+      stopBox.replaceChildren(
+        el("span", { class: "hint", text: "Stop now? The answers you have given so far will be kept." }),
+        el("button", { class: "quiet", text: "Yes, stop", onclick: function () { S.stopped_early = true; save(); afterQuestions(); } }),
+        el("button", { class: "link", text: "No, go back", onclick: function () { stopBox.replaceChildren(stopLink); } })
+      );
+    });
+    stopBox.appendChild(stopLink);
+    show([
+      el("div", { class: "progress" }, [
+        el("span", { class: "label", text: label }),
+        el("div", { class: "bar", "aria-hidden": "true" }, [el("span", { style: "width:" + Math.round(100 * done / of) + "%" })])
+      ]),
+      el("div", { class: "card" }, [
+        el("h2", { text: it.title }),
+        el("p", { class: "problem", text: it.text }),
+        el("p", { class: "ask", text: it.question }),
+        el("div", { class: "field" }, [
+          el("label", { for: "answer", text: "Your answer" }),
+          el("div", { class: "answer-row" }, [ans, el("span", { class: "hint", id: "answer-hint", text: "as a percent, e.g. 34 or 34%" })])
+        ]),
+        el("div", { class: "field" }, [
+          el("label", { for: "working", text: "Your working" }),
+          el("span", { class: "hint", id: "working-hint", text: "Write the steps in the order you did them. Numbers and short notes are fine." }),
+          work
+        ]),
+        err,
+        el("div", { class: "actions" }, [submit, el("span", { class: "hint", text: "You can't go back to change an answer." })])
+      ]),
+      stopBox
+    ]);
+    ans.focus();
+  }
+
+  function afterQuestions() {
+    const no = el("input", { type: "radio", name: "help", id: "help-no", value: "no" });
+    const yes = el("input", { type: "radio", name: "help", id: "help-yes", value: "yes" });
+    const detail = el("input", { type: "text", id: "help-detail", placeholder: "What did you use?" });
+    detail.hidden = true;
+    const comment = el("textarea", { id: "comment", style: "min-height:5rem" });
+    const err = el("div", { class: "error", role: "alert" }); err.hidden = true;
+    [no, yes].forEach(function (r) { r.addEventListener("change", function () { detail.hidden = !yes.checked; }); });
+    const finish = el("button", { id: "finish", text: "Finish" });
+    finish.addEventListener("click", function () {
+      if (!no.checked && !yes.checked) { err.textContent = "Please choose yes or no."; err.hidden = false; return; }
+      S.help_used = yes.checked; S.help_detail = yes.checked ? detail.value : ""; S.comment = comment.value;
+      S.completed = !S.stopped_early && S.items.length === TOTAL; S.finished_at = now(); save(); finished();
+    });
+    show([
+      el("h1", { text: S.stopped_early ? "Visit stopped" : "Last two questions" }),
+      el("div", { class: "card" }, [
+        el("div", { class: "field" }, [
+          el("span", { class: "label", text: "Required" }),
+          el("p", { text: "Did you use anything other than pen, paper and a calculator? For example a website, an AI tool, or help from someone." }),
+          el("div", { class: "radio-row" }, [
+            el("label", { for: "help-no" }, [no, el("span", { text: "No" })]),
+            el("label", { for: "help-yes" }, [yes, el("span", { text: "Yes" })])
+          ]),
+          detail
+        ]),
+        el("div", { class: "field" }, [
+          el("label", { for: "comment", text: "Anything you want to tell us (optional)" }), comment
+        ]),
+        err,
+        el("div", { class: "actions" }, [finish])
+      ])
+    ]);
+  }
+
+  function finished() {
+    window.removeEventListener("beforeunload", guard);
+    const json = JSON.stringify(S, null, 1);
+    const fname = D.code + "_visit" + D.visit + "_answers.json";
+    const out = el("pre", { class: "out", id: "out", tabindex: "0" }, [json]);
+    const status = el("span", { class: "hint", role: "status" });
+    function download() {
+      try {
+        const url = URL.createObjectURL(new Blob([json], { type: "application/json" }));
+        const a = el("a", { href: url, download: fname }); document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+        status.textContent = "Saved as " + fname + " (usually in your Downloads folder).";
+      } catch (e) { status.textContent = "Saving didn't work here. Use Copy instead."; }
+    }
+    function copy() {
+      const done = function () { status.textContent = "Copied. Paste it into a message to the team."; };
+      try {
+        navigator.clipboard.writeText(json).then(done, selectOut);
+      } catch (e) { selectOut(); }
+    }
+    function selectOut() {
+      const r = document.createRange(); r.selectNodeContents(out);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      status.textContent = "The text is selected. Press Ctrl+C (Cmd+C on a Mac) to copy it.";
+    }
+    show([
+      el("h1", { text: "Thank you, this visit is finished" }),
+      el("div", { class: "card" }, [
+        el("p", { text: "Please send your answers to the team. Save the file, then send it by email or WhatsApp to " + (D.contact || "the person who sent you this page") + "." }),
+        el("div", { class: "actions" }, [
+          el("button", { id: "save", text: "Save the answers file", onclick: download }),
+          el("button", { class: "quiet", id: "copy", text: "Copy instead", onclick: copy })
+        ]),
+        status,
+        el("p", { class: "hint", text: "If saving and copying both fail, take a screenshot of the text below and send that." }),
+        out
+      ])
+    ]);
+  }
+
+  function guard(e) { if (S.started_at && !S.finished_at) { e.preventDefault(); e.returnValue = ""; } }
+  window.addEventListener("beforeunload", guard);
+  if (D.code === undefined || !Array.isArray(D.items) || D.items.length !== 7) {
+    show([el("h1", { text: "This page is missing its questions" }),
+          el("p", { text: "Please ask the team for a new copy." })]);
+  } else {
+    intro();
+  }
+})();
+</script>
+</body>
+</html>
